@@ -19,6 +19,31 @@ class product_model extends CI_Model {
 		$query = $this->db->get('product_limit');
 		return $query->result_array();
 	}
+
+	public function report_product_list($input)
+	{
+		$product = $this->product_list();
+		$i=0;
+		foreach ($product as $row) {
+			$this->db->select_sum('stock_amount');
+			$this->db->select_sum('stock_price');
+			$this->db->where('stock_product',$row['product_code']);
+			$this->db->where('stock.stock_type',"out");
+			$this->db->where('stock.stock_date >=',$input['date_start']);
+			$this->db->where('stock.stock_date <=',$input['date_end']);
+			$query = $this->db->get('stock')->result_array();
+			if ($query[0]['stock_amount']>0) {
+				$product[$i]['sum_stock'] = $query[0];
+			} else {
+				unset($product[$i]);
+			}
+			$i++;
+
+		}
+		// $this->debuger->prevalue($product);
+		return $product;
+	}
+
 	public function product_insert($product)
 	{
 		$this->db->insert('product',$product);

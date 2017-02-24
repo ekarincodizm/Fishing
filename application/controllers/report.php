@@ -48,7 +48,7 @@ class report extends CI_Controller {
 				'date_start' => $this->input->post('start'),
 				'date_end' => $this->input->post('end')
 			);
-			$data['product'] = $this->product_model->product_list();
+			$data['product'] = $this->product_model->report_product_list($data);
 			$data['page'] = "report/report_product";
 			$this->load->view('head',$data);
 		}else{
@@ -69,12 +69,38 @@ class report extends CI_Controller {
 	{
 		@session_start();
 		if(@$_SESSION['employees_id']!=""){
-			$data = array(
+			$input = array(
 				'date_start' => $this->input->post('start'),
-				'date_end' => $this->input->post('end')
+				'date_end' => $this->input->post('end'),
 			);
-			$data['product'] = $this->product_model->product_list();
+			$data['changes'] = $this->stock_model->report_in($input);
 			$data['page'] = "report/report_in";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+
+	public function report_out()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$data['page'] = "report/report_out";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+	public function report_out_search()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$input = array(
+				'date_start' => $this->input->post('start'),
+				'date_end' => $this->input->post('end'),
+			);
+			$data['changes'] = $this->stock_model->report_out($input);
+			$data['page'] = "report/report_out";
 			$this->load->view('head',$data);
 		}else{
 			redirect('login/index');
