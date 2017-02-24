@@ -17,6 +17,7 @@ class warehouse extends CI_Controller {
 	{
 		@session_start();
 		if(@$_SESSION['employees_id']!=""){
+			$data['product'] = $this->product_model->product_list();
 			$data['page'] = "warehouse/warehouse_in";
 			$this->load->view('head',$data);
 		}else{
@@ -28,6 +29,7 @@ class warehouse extends CI_Controller {
 		@session_start();
 		if(@$_SESSION['employees_id']!=""){
 			$data['shop'] = $this->shop_model->shop_list();
+			$data['product'] = $this->product_model->product_list();
 			$data['page'] = "warehouse/warehouse_out";
 			$this->load->view('head',$data);
 		}else{

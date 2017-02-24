@@ -31,26 +31,26 @@
         <td><?php echo $product['product_name']?></td>
         <td><div align="center">
         <?php
-        	$this->db->select_sum('stock_amount');
+      $this->db->select_sum('stock_amount');
 			$this->db->where('stock_product',$product['product_code']);
 			$this->db->where('stock_shop',@$_SESSION['employees_shop']);
 			$this->db->where('stock_type','in');
 			$in = $this->db->get('stock');
 			$in_stock_amount = $in->result_array();
-			
+
 			$this->db->select_sum('stock_amount');
 			$this->db->where('stock_product',$product['product_code']);
 			$this->db->where('stock_shop',@$_SESSION['employees_shop']);
 			$this->db->where('stock_type','out');
 			$out = $this->db->get('stock');
 			$out_stock_amount = $out->result_array();
-			
+
 			echo number_format($stock_amount = ((@$in_stock_amount[0]['stock_amount']+0) - (@$out_stock_amount[0]['stock_amount']+0)));
 		?>
         </div></td>
         <td><div align="center">
         <?php
-        	if(($product['product_max']/4)<$stock_amount){
+        	if(($product['product_limit_max'])<$stock_amount){
 				echo "<span style='color:green;'>คงเหลือปกติ</span>";
 			}else{
 				echo "<span style='color:red;'>คงเหลือน้อยกว่าเกณฑ์</span>";

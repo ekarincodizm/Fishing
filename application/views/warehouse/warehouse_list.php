@@ -15,9 +15,10 @@
         <th width="5%"><div align="center">ลำดับ</div></th>
         <th width="15%"><div align="center">รหัสสินค้า <i class="fa fa-sort"></i></div></th>
         <th width="15%"><div align="center">ประเภทสินค้า <i class="fa fa-sort"></i></div></th>
-        <th width="30%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
+        <th width="25%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
+        <th width="10%"><div align="center">หน่วย</div></th>
         <th width="15%"><div align="center">จำนวนคงเหลือ <i class="fa fa-sort"></i></div></th>
-        <th width="20%"><div align="center">สถานะ</div></th>
+        <th width="15%"><div align="center">สถานะ</div></th>
       </tr>
     </thead>
     <tbody>
@@ -29,22 +30,23 @@
         <td><?php echo $product['product_code']?></td>
         <td><?php echo $product['category_name']?></td>
         <td><?php echo $product['product_name']?></td>
+        <td align="center"><?php echo $product['product_unit']?></td>
         <td><div align="center">
         <?php
-        	$this->db->select_sum('warehouse_amount');
+      $this->db->select_sum('warehouse_amount');
 			$this->db->where('warehouse_product',$product['product_code']);
 			$this->db->where('warehouse_type','in');
 			$in = $this->db->get('warehouse');
 			$in_warehouse_amount = $in->result_array();
-			
+
 			$this->db->select_sum('warehouse_amount');
 			$this->db->where('warehouse_product',$product['product_code']);
 			$this->db->where('warehouse_type','out');
 			$out = $this->db->get('warehouse');
 			$out_warehouse_amount = $out->result_array();
-			
 			echo number_format($warehouse_amount = ((@$in_warehouse_amount[0]['warehouse_amount']+0) - (@$out_warehouse_amount[0]['warehouse_amount']+0)));
-		?>
+        ?>
+
         </div></td>
         <td><div align="center">
         <?php

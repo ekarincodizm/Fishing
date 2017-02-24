@@ -30,9 +30,10 @@
         <th width="5%"><div align="center">ลำดับ</div></th>
         <th width="15%"><div align="center">รหัสสินค้า <i class="fa fa-sort"></i></div></th>
         <th width="15%"><div align="center">ประเภทสินค้า <i class="fa fa-sort"></i></div></th>
-        <th width="30%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
+        <th width="25%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
+        <th width="10%"><div align="center">หน่วย</div></th>
         <th width="15%"><div align="center">จำนวนคงเหลือ <i class="fa fa-sort"></i></div></th>
-        <th width="20%"><div align="center">สถานะ</div></th>
+        <th width="15%"><div align="center">สถานะ</div></th>
       </tr>
     </thead>
     <tbody>
@@ -44,28 +45,30 @@
         <td><?php echo $product['product_code']?></td>
         <td><?php echo $product['category_name']?></td>
         <td><?php echo $product['product_name']?></td>
+        <td align="center"><?php echo $product['product_unit']?></td>
         <td><div align="center">
         <?php
-        	$this->db->select_sum('stock_amount');
+      $this->db->select_sum('stock_amount');
 			$this->db->where('stock_product',$product['product_code']);
 			$this->db->where('stock_shop',@$employees_shop);
 			$this->db->where('stock_type','in');
 			$in = $this->db->get('stock');
 			$in_stock_amount = $in->result_array();
-			
+
 			$this->db->select_sum('stock_amount');
 			$this->db->where('stock_product',$product['product_code']);
 			$this->db->where('stock_shop',@$employees_shop);
 			$this->db->where('stock_type','out');
 			$out = $this->db->get('stock');
 			$out_stock_amount = $out->result_array();
-			
+
 			echo number_format($stock_amount = ((@$in_stock_amount[0]['stock_amount']+0) - (@$out_stock_amount[0]['stock_amount']+0)));
 		?>
         </div></td>
         <td><div align="center">
         <?php
-        	if(($product['product_max']/4)<$stock_amount){
+        	// if(($product['product_limit_max']/4)<$stock_amount){
+          if(($product['product_limit_max'])<$stock_amount){
 				echo "<span style='color:green;'>คงเหลือปกติ</span>";
 			}else{
 				echo "<span style='color:red;'>คงเหลือน้อยกว่าเกณฑ์</span>";

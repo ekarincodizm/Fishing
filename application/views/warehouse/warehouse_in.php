@@ -30,5 +30,42 @@ function getfocus(){
     </tr>
   </table>
   <?php echo form_close()?>
+
+	<table class="table table-bordered table-hover table-striped tablesorter">
+		<thead>
+			<tr>
+				<th width="5%"><div align="center">ลำดับ</div></th>
+				<th width="15%"><div align="center">รหัสสินค้า <i class="fa fa-sort"></i></div></th>
+				<th width="15%"><div align="center">ประเภทสินค้า <i class="fa fa-sort"></i></div></th>
+				<th width="30%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
+				<th width="15%"><div align="center">จำนวนนำเข้า <i class="fa fa-sort"></i></div></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php $confirm = array( 'onclick' => "return confirm('ต้องการลบข้อมูลหรือไม่?')");?>
+			<?php $i = 1 ?>
+		<?php foreach($product as $product){ ?>
+			<tr>
+				<td><div align="center"><?php echo $i ?></div></td>
+				<td><?php echo $product['product_code']?></td>
+				<td><?php echo $product['category_name']?></td>
+				<td><?php echo $product['product_name']?></td>
+				<td><div align="center">
+				<?php
+			$this->db->select_sum('warehouse_amount');
+			$this->db->where('warehouse_product',$product['product_code']);
+			$this->db->where('warehouse_type','in');
+			$in = $this->db->get('warehouse');
+			$in_warehouse_amount = $in->result_array();
+
+			echo number_format(@$in_warehouse_amount[0]['warehouse_amount']);
+		?>
+
+				</div></td>
+			</tr>
+			<?php $i++ ?>
+		<?php } ?>
+		</tbody>
+	</table>
 </div>
 </body>

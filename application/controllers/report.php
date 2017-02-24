@@ -55,5 +55,29 @@ class report extends CI_Controller {
 			redirect('login/index');
 		}
 	}
-	
+	public function report_in()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$data['page'] = "report/report_in";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+	public function report_in_search()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$data = array(
+				'date_start' => $this->input->post('start'),
+				'date_end' => $this->input->post('end')
+			);
+			$data['product'] = $this->product_model->product_list();
+			$data['page'] = "report/report_in";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
 }

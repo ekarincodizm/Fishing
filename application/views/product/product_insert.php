@@ -38,7 +38,12 @@ function getfocus(){
       <td><input type="text" name="product_buy" id="product_buy" class="form-control" style="width:35%;" required placeholder="ราคาขาย"  /></td>
       <td>ราคาขาย</td>
       <td height="50"><input type="text" name="product_sale" id="product_sale" class="form-control" style="width:35%;" required placeholder="ราคาขาย"  /></td>
-    </tr>
+		</tr>
+    <tr>
+      <td height="50">หน่วยนับ</td>
+      <td height="50"><input type="text" name="product_unit" id="product_unit" class="form-control" style="width:35%;" required placeholder="ระบุหน่วยนับ"  /></td>
+      <td height="50">หมายเหตุ</td>
+      <td><textarea height="50" name="product_note" id="product_note" rows="4" cols="40" class="form-control" required placeholder="หมายเหตุ"></textarea></td>
     <tr>
       <td height="100" colspan="4"><div align="center">
           <input type="submit" class="btn btn-primary" value="บันทึกข้อมูล">
