@@ -11,7 +11,7 @@
     </div>
   </div>
   <!-- /.row -->
-  <?php echo form_open('report/report_in_search')?>
+  <?php echo form_open('report/report_out_search')?>
   <table width="90%" border="0" cellspacing="5" cellpadding="5">
     <tr>
       <td width="12%" align="center">เริ่มต้น</td>
@@ -56,8 +56,7 @@
       <tr>
         <td colspan="6"><div align="center">รวมทั้งหมด</div></td>
         <td><div align="right"><?php echo number_format(array_sum($total))?> บาท</div></td>
-        <td>&nbsp;</td>
-      </tr>
+        </tr>
     </tbody>
   </table>
   <?php } ?>

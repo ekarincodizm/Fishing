@@ -28,10 +28,11 @@ class stock_model extends CI_Model {
 		$this->db->where('warehouse.warehouse_date >=',$input['date_start']);
 		$this->db->where('warehouse.warehouse_date <=',$input['date_end']);
 		$this->db->join('product','product.product_code = warehouse.warehouse_product');
-		$query = $this->db->get('warehouse');
+		$query = $this->db->get('warehouse')->result_array();
+		$this->debuger->prevalue($query);
 		return $query->result_array();
 	}
-	
+
 	public function report_out($input)
 	{
 		$this->db->where('warehouse.warehouse_type',"out");

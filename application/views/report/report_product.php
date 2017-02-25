@@ -53,18 +53,18 @@
         	$this->db->where('stock_date <=',$date_end);
 			$query = $this->db->get('stock');
 			$stock_amount = $query->result_array();
-			echo number_format(count($stock_amount));
-			@$total[] = (@$product['product_sale']*count($stock_amount));
-			@$amount[] = count($stock_amount);
+			echo number_format(@$product['sum_stock']['stock_amount']);
+			@$total[] = @$product['sum_stock']['stock_price'];
+			@$amount[] = $product['sum_stock']['stock_amount'];
 		?> หน่วย</div></td>
-        <td><div align="right"><?php echo number_format(($product['product_sale']*count($stock_amount)))?> บาท</div></td>
+        <td><div align="right"><?php echo number_format($product['sum_stock']['stock_price'])?> บาท</div></td>
       </tr>
       <?php $i++ ?>
 	  <?php } ?>
       <tr>
         <td colspan="4"><div align="center">รวมทั้งหมด</div></td>
-        <td><div align="right"><?php echo number_format(array_sum(@$amount))?> หน่วย</div></td>
-        <td><div align="right"><?php echo number_format(array_sum(@$total))?> บาท</div></td>
+        <td><div align="right"><?php echo number_format(@array_sum(@$amount))?> หน่วย</div></td>
+        <td><div align="right"><?php echo number_format(@array_sum(@$total))?> บาท</div></td>
       </tr>
     </tbody>
   </table>
