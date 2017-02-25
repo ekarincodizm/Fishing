@@ -8,7 +8,8 @@
 <title>ระบบบริหารจัดการคลังสินค้า Bhuvarat Fishing Net.</title>
 
 <!-- Bootstrap core CSS -->
-<link href="<?php echo base_url()?>css/bootstrap.css" rel="stylesheet">
+<link href="<?php echo base_url()?>css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo base_url()?>css\fontawesome321\css\font-awesome.min.css" rel="stylesheet">
 
 <!-- Add custom CSS here -->
 <link href="<?php echo base_url()?>css/sb-admin.css" rel="stylesheet">
@@ -25,8 +26,8 @@
 <script src="<?php echo base_url()?>js/raphael-min.js"></script>
 <script src="<?php echo base_url()?>js/morris-0.4.3.min.js"></script>
 <script src="<?php echo base_url()?>js/morris/chart-data-morris.js"></script>
-<script src="<?php echo base_url()?>js/tablesorter/jquery.tablesorter.js"></script>
-<script src="<?php echo base_url()?>js/tablesorter/tables.js"></script>
+<!-- <script src="<?php echo base_url()?>js/tablesorter/jquery.tablesorter.js"></script>
+<script src="<?php echo base_url()?>js/tablesorter/tables.js"></script> -->
 </head>
 <?php @session_start()?>
 <body>
