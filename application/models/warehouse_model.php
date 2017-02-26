@@ -17,6 +17,7 @@ class warehouse_model extends CI_Model {
 	{
 		$this->db->order_by('warehouse_temp_date','desc');
 		$this->db->where('warehouse_temp_type',"in");
+		$this->db->where('warehouse_temp_shop',0);
 		$this->db->join('product','product.product_code = warehouse_temp.warehouse_temp_product');
 		$this->db->join('category','category.category_id = product.product_category');
 		$query = $this->db->get('warehouse_temp')->result_array();
@@ -41,6 +42,11 @@ class warehouse_model extends CI_Model {
 	public function warehouse_temp_remove($type)
 	{
 		$this->db->where('warehouse_temp_type',$type);
+		$this->db->delete('warehouse_temp');
+	}
+	public function stock_temp_remove($shop_id)
+	{
+		$this->db->where('warehouse_temp_shop',$shop_id);
 		$this->db->delete('warehouse_temp');
 	}
 	public function warehouse_temp_delete($id)

@@ -59,8 +59,38 @@ class stock extends CI_Controller {
 		if(@$_SESSION['employees_id']!=""){
 			$data['allproduct'] = $this->product_model->product_list();
 			$data['shop'] = $this->shop_model->shop_list();
+			$data['product'] = $this->stock_model->stock_in_temp_list_shop($_SESSION['employees_shop']);
 			$data['page'] = "stock/stock_in";
 			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+	public function stock_in_insert()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			@$shop_id = $_SESSION['employees_shop'];
+			$data = $this->stock_model->stock_in_temp_list_shop($_SESSION['employees_shop']);
+			foreach ($data as $row) {
+				$product_code = $row['product_code'];
+				$amount = $row['warehouse_temp_amount'];
+				$price = $row['product_sale']*$amount;
+				$input = array(
+					'stock_product' => $row['warehouse_temp_product'],
+					'stock_type' => "in",
+					'stock_amount' => $row['warehouse_temp_amount'],
+					'stock_date' => date('Y-m-d'),
+					'stock_time' => date('H:i:s'),
+					'stock_employees' => @$_SESSION['employees_id'],
+					'stock_shop' => $shop_id,
+					'stock_price' => $price,
+				);
+				$this->stock_model->product_insert_limit($shop_id,$product_code);
+				$this->stock_model->stock_in($input);
+			}
+			$this->warehouse_model->stock_temp_remove($_SESSION['employees_shop']);
+			redirect('stock/stock_list');
 		}else{
 			redirect('login/index');
 		}
