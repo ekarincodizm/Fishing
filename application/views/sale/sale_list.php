@@ -19,9 +19,37 @@ function getfocus(){
       <td width="61%"><div align="center"> <?php echo form_open('sale_manage/sale_list')?>
           <input type="text" name="barcode" id="barcode" class="form-control" required autocomplete="off" style="width:90%; text-align:center;" placeholder="---- บาร์โค้ดสินค้า ----" />
           <?php echo form_close()?> </div></td>
-      <td width="39%" valign="top">&nbsp;</td>
     </tr>
     <?php echo form_open('sale_manage/sale_insert')?>
+    <tr>
+      <td>
+        <div align="center"><h3>รายละเอียดลูกค้า</h3></div>
+      </td>
+    </tr>
+    <tr>
+      <td height="50"><div align="center">
+        <input type="text" name="member_fullname" id="member_fullname" autocomplete="off" class="form-control" style="width:45%; text-align:center;" placeholder="---- ชื่อ - สกุล ----" />
+        <input type="text" name="member_phone" id="member_phone" autocomplete="off" class="form-control" style="width:45%; text-align:center;" placeholder="---- เบอร์โทรศัพท์ ----" />
+      </td></div>
+    </tr>
+    <tr>
+      <td><div align="center">
+        <textarea col="3" rows="3" name="member_address" id="member_address" class="form-control" style="width:45%; text-align:center;" placeholder="---- ที่อยู่ ----" /></textarea>
+        <textarea col="3" rows="3" name="member_note" id="member_note" class="form-control" style="width:45%; text-align:center;" placeholder="---- หมายเหตุ ----" /></textarea>
+      </td></div>
+    </tr>
+    <tr>
+      <td>
+        <div align="center"><h4>รูปแบบชำระเงิน</h4></div>
+      </td>
+    </tr>
+    <tr>
+      <td><div align="center">
+        เงินสด <input type="radio" name="sale_order_detail_pay_type" id="sale_order_detail_pay_type" autocomplete="off" class="form-control"  value="เงินสด "/>
+        เช็ค <input type="radio" name="sale_order_detail_pay_type" id="sale_order_detail_pay_type" autocomplete="off" class="form-control"  />
+        เครดิต <input type="radio" name="sale_order_detail_pay_type" id="sale_order_detail_pay_type" autocomplete="off" class="form-control"  />
+      </td></div>
+    </tr>
     <tr>
       <td><table width="100%" border="1" cellspacing="0" cellpadding="0">
           <tr>

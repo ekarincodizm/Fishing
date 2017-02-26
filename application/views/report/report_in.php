@@ -48,7 +48,7 @@
 <div class="row">
   <div class="col-md-12">
     <?php if(@$changes[0]['warehouse_id']!=""){ ?>
-    <table class="DataTable table">
+      <table class="DataTable table table-hover">
       <thead>
         <tr>
           <th>ลำดับ</th>

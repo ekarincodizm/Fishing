@@ -1,3 +1,18 @@
+<!-- CSS -->
+<link rel="stylesheet" href="<?php echo base_url()?>js\DataTables\media\css\dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url()?>js\DataTables\extensions\Buttons\css\buttons.bootstrap.min.css">
+
+<!-- jquery.dataTables -->
+<script src="<?php echo base_url()?>js\DataTables\media\js\jquery.dataTables.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\media\js\dataTables.bootstrap.min.js" charset="utf-8"></script>
+<!-- Buttons -->
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\dataTables.buttons.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\buttons.bootstrap.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\buttons.print.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\buttons.html5.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\buttons.colVis.min.js" charset="utf-8"></script>
+<script src="<?php echo base_url()?>js\DataTables\extensions\Buttons\js\buttons.flash.min.js" charset="utf-8"></script>
+
 <link href="<?php echo base_url()?>css/kendo.common.min.css" rel="stylesheet" />
 <link href="<?php echo base_url()?>css/kendo.bootstrap.min.css" rel="stylesheet" />
 <script src="<?php echo base_url()?>js/kendo.all.min.js"></script>
@@ -31,7 +46,7 @@
   <?php echo form_close()?>
   <p></p>
   <?php if(@$changes[0]['stock_id']!=""){ ?>
-  <table class="table table-bordered table-hover table-striped tablesorter">
+    <table class="DataTable table table-hover">
     <thead>
       <tr>
         <th><div align="center">ลำดับ</div></th>
@@ -46,30 +61,69 @@
     </thead>
     <tbody>
     <?php $confirm = array( 'onclick' => "return confirm('ต้องการลบข้อมูลหรือไม่?')");?>
-      <?php $i = 1 ?>
+      <?php $i = 1; $pricesum = 0; $amountsum = 0;?>
 	  <?php foreach($changes as $changes){ ?>
-      <?php $total[] = ($changes['product_sale']*$changes['stock_amount'])?>
+      <?php $price = $changes['product_sale']*$changes['stock_amount']?>
+      <?php $amount = $changes['stock_amount'] ?>
       <tr>
         <td><div align="center"><?php echo $i ?></div></td>
         <td><?php echo $changes['product_name']?></td>
         <td><?php echo $changes['stock_date']?></td>
         <td><?php echo $changes['stock_time']?></td>
-        <td><div align="right"><?php echo $changes['stock_amount']?> หน่วย</div></td>
+        <td><div align="right"><?php echo $amount?> หน่วย</div></td>
         <td><div align="right"><?php echo $changes['product_sale']?> บาท</div></td>
-        <td><div align="right"><?php echo ($changes['product_sale']*$changes['stock_amount'])?> บาท</div></td>
+        <td><div align="right"><?php echo $price;?> บาท</div></td>
         <td><?php echo $changes['shop_details']?> (<?php echo $changes['shop_zone']?>)</td>
       </tr>
-      <?php $i++ ?>
+      <?php $i++; $pricesum += $price; $amountsum += $amount;?>
 	  <?php } ?>
-      <tr>
-        <td colspan="6"><div align="center">รวมทั้งหมด</div></td>
-        <td><div align="right"><?php echo number_format(array_sum($total))?> บาท</div></td>
-        <td>&nbsp;</td>
-      </tr>
+    <tr class="warning">
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><div align="right"><?php echo number_format($amountsum); ?> หน่วย</td>
+      <td></td>
+      <td><div align="right"><?php echo number_format($pricesum); ?> บาท</td>
+      <td></td>
+    </tr>
     </tbody>
   </table>
   <?php } ?>
 </div>
+
+<script type="text/javascript">
+$.extend(true, $.fn.dataTable.defaults, {
+  "language": {
+            "sProcessing": "กำลังดำเนินการ...",
+            "sLengthMenu": "แสดง_MENU_ แถว",
+            "sZeroRecords": "ไม่พบข้อมูล",
+            "sInfo": "แสดง _START_ ถึง _END_ จาก _TOTAL_ แถว",
+            "sInfoEmpty": "แสดง 0 ถึง 0 จาก 0 แถว",
+            "sInfoFiltered": "(กรองข้อมูล _MAX_ ทุกแถว)",
+            "sInfoPostFix": "",
+            "sSearch": "ค้นหา:",
+            "sUrl": "",
+            "oPaginate": {
+                          "sFirst": "เริ่มต้น",
+                          "sPrevious": "ก่อนหน้า",
+                          "sNext": "ถัดไป",
+                          "sLast": "สุดท้าย"
+            }
+   }
+});
+
+$('.DataTable').DataTable( {
+  dom: 'Bfrtip',
+  buttons: [
+      'excel',
+      'print'
+  ]
+} );
+</script>
+</div>
+</div>
+
 <script>
             $(document).ready(function() {
                 $("#start").kendoDatePicker({format: "yyyy-MM-dd"});
