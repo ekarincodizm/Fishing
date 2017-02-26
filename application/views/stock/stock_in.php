@@ -16,9 +16,14 @@ function getfocus(){
   <!-- /.row -->
   <?php echo form_open('stock_manage/stock_in')?>
   <table width="85%" border="0" align="center" cellpadding="5" cellspacing="5">
-    <tr>
-      <td width="15%" height="50">รหัสสินค้า</td>
-      <td width="35%"><input type="text" name="stock_product" id="stock_product" class="form-control" autocomplete="off" style="width:80%;" placeholder="กรอกรหัสสินค้า" required /></td>
+		<tr>
+			<td width="15%" height="50">ชื่อสินค้า</td>
+			<td width="24%"><select name="stock_product" id="stock_product" class="form-control" style="width:80%;" required>
+				<option value="">-- เลือกสินค้า --</option>
+				<?php foreach($allproduct as $row){ ?>
+				<option value="<?php echo $row['product_code']?>"><?php echo $row['product_name']?></option>
+				<?php } ?>
+			</select></td>
       <td width="15%">จำนวนนำเข้า</td>
       <td width="35%" height="50"><input type="text" name="stock_amount" id="stock_amount" class="form-control" style="width:35%; text-align:right;" placeholder="จำนวน" required /></td>
     </tr>

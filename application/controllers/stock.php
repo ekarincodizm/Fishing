@@ -57,11 +57,12 @@ class stock extends CI_Controller {
 	{
 		@session_start();
 		if(@$_SESSION['employees_id']!=""){
+			$data['allproduct'] = $this->product_model->product_list();
+			$data['shop'] = $this->shop_model->shop_list();
 			$data['page'] = "stock/stock_in";
 			$this->load->view('head',$data);
 		}else{
 			redirect('login/index');
 		}
 	}
-
 }

@@ -39,6 +39,12 @@ function getfocus(){
       <td>ราคาขาย</td>
       <td height="50"><input type="text" name="product_sale" id="product_sale" class="form-control" style="width:35%;" required placeholder="ราคาขาย" value="<?php echo @$product[0]['product_sale']?>"  /></td>
     </tr>
+		<tr>
+      <td height="50">หน่วยนับ</td>
+      <td height="50"><input type="text" name="product_unit" id="product_unit" class="form-control" style="width:35%;" required placeholder="ระบุหน่วยนับ"  /></td>
+      <td height="50">หมายเหตุ</td>
+      <td><textarea height="50" name="product_note" id="product_note" rows="4" cols="40" class="form-control" required placeholder="หมายเหตุ"></textarea></td>
+    <tr>
     <tr>
       <td height="100" colspan="4"><div align="center">
           <input type="hidden" name="product_id" id="product_id" value="<?php echo @$product[0]['product_id']?>" />

@@ -14,23 +14,32 @@ function getfocus(){
     </div>
   </div>
   <!-- /.row -->
-  <?php echo form_open('warehouse_manage/warehouse_in')?>
+  <?php echo form_open('warehouse_manage/warehouse_in_temp')?>
   <table width="85%" border="0" align="center" cellpadding="5" cellspacing="5">
     <tr>
-      <td width="15%" height="50">รหัสสินค้า</td>
-      <td width="35%"><input type="text" name="warehouse_product" id="warehouse_product" class="form-control" autocomplete="off" style="width:80%;" placeholder="กรอกรหัสสินค้า" required /></td>
+      <td width="15%" height="50">ชื่อสินค้า</td>
+			<td width="24%"><select name="warehouse_product" id="warehouse_product" class="form-control" style="width:80%;" required>
+        <option value="">-- เลือกสินค้า --</option>
+        <?php foreach($allproduct as $row){ ?>
+        <option value="<?php echo $row['product_code']?>"><?php echo $row['product_name']?></option>
+        <?php } ?>
+      </select></td>
       <td width="15%">จำนวนนำเข้า</td>
       <td width="35%" height="50"><input type="text" name="warehouse_amount" id="warehouse_amount" class="form-control" style="width:35%; text-align:right;" placeholder="จำนวน" required /></td>
-    </tr>
-    <tr>
       <td height="100" colspan="4"><div align="center">
           <input type="submit" class="btn btn-primary" value="บันทึกข้อมูล">
-          <?php echo anchor('warehouse/warehouse_list','<input type="button" class="btn btn-danger" value="ยกเลิก">')?>
-        </div></td>
-    </tr>
+          <!-- <?php echo anchor('warehouse/warehouse_list','<input type="button" class="btn btn-danger" value="ยกเลิก">')?> -->
+      </div>
+		</td>
+		    </tr>
   </table>
   <?php echo form_close()?>
+	<hr>
+	<?php if (count($product)>0): ?>
 
+	<h2 class="text-center">โปรดตรวจสอบสินค้าอีกครั้ง</h2>
+	<div class="text-center"><?php echo anchor('warehouse/warehouse_in_insert','<input type="button" class="btn btn-success" value="ยืนยันรายการทั้งหมด">')?></div>
+	<br>
 	<table class="table table-bordered table-hover table-striped tablesorter">
 		<thead>
 			<tr>
@@ -39,6 +48,7 @@ function getfocus(){
 				<th width="15%"><div align="center">ประเภทสินค้า <i class="fa fa-sort"></i></div></th>
 				<th width="30%"><div align="center">ชื่อสินค้า <i class="fa fa-sort"></i></div></th>
 				<th width="15%"><div align="center">จำนวนนำเข้า <i class="fa fa-sort"></i></div></th>
+				<th width="5%"><div align="center">ยกเลิก <i class="fa fa-sort"></i></div></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -51,21 +61,15 @@ function getfocus(){
 				<td><?php echo $product['category_name']?></td>
 				<td><?php echo $product['product_name']?></td>
 				<td><div align="center">
-				<?php
-			$this->db->select_sum('warehouse_amount');
-			$this->db->where('warehouse_product',$product['product_code']);
-			$this->db->where('warehouse_type','in');
-			$in = $this->db->get('warehouse');
-			$in_warehouse_amount = $in->result_array();
-
-			echo number_format(@$in_warehouse_amount[0]['warehouse_amount']);
-		?>
-
+				<?php echo number_format(@$product['warehouse_temp_amount']);?>
+			<td><div class="align="center""><?php echo anchor('warehouse/warehouse_temp_in_remove/'.$product['warehouse_temp_id'],'<input type="button" class="btn btn-danger" value="ยกเลิก">')?></div></td>
 				</div></td>
 			</tr>
 			<?php $i++ ?>
 		<?php } ?>
 		</tbody>
 	</table>
+<?php endif; ?>
+
 </div>
 </body>

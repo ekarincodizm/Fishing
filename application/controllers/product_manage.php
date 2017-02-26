@@ -35,7 +35,7 @@ class product_manage extends CI_Controller {
 			'product_max' => $this->input->post('product_max'),
 			'product_unit' => $this->input->post('product_unit'),
 			'product_note' => $this->input->post('product_note'),
-			'product_status' => 1
+			'product_status' => 1,
 		);
 		$this->product_model->product_insert($product);
 		redirect('product/product_list');
@@ -49,7 +49,10 @@ class product_manage extends CI_Controller {
 			'product_category' => $this->input->post('product_category'),
 			'product_buy' => $this->input->post('product_buy'),
 			'product_sale' => $this->input->post('product_sale'),
-			'product_max' => $this->input->post('product_max')
+			'product_max' => $this->input->post('product_max'),
+			'product_unit' => $this->input->post('product_unit'),
+			'product_note' => $this->input->post('product_note'),
+			'product_status' => 1,
 		);
 		$this->product_model->product_update($product);
 		redirect('product/product_list');

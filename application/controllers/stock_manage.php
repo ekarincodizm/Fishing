@@ -5,15 +5,22 @@ class stock_manage extends CI_Controller {
 	public function stock_in()
 	{
 		@session_start();
+		$product_code = $this->input->post('stock_product');
+		$amount = $this->input->post('stock_amount');
+		@$shop_id = $_SESSION['employees_shop'];
+		$data = $this->product_model->product_list_by_code($product_code);
+		$price = $data[0]['product_sale']*$amount;
 		$stock = array(
-			'stock_product' => $this->input->post('stock_product'),
+			'stock_product' => $product_code,
 			'stock_type' => "in",
-			'stock_amount' => $this->input->post('stock_amount'),
+			'stock_amount' => $amount,
 			'stock_date' => date('Y-m-d'),
 			'stock_time' => date('H:i:s'),
 			'stock_employees' => @$_SESSION['employees_id'],
-			'stock_shop' => @$_SESSION['employees_shop']
+			'stock_shop' => $shop_id,
+			'stock_price' => $price,
 		);
+		$this->stock_model->product_insert_limit($shop_id,$product_code);
 		$this->stock_model->stock_in($stock);
 		redirect('stock/stock_list');
 	}

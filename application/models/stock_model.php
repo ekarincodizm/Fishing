@@ -28,8 +28,7 @@ class stock_model extends CI_Model {
 		$this->db->where('warehouse.warehouse_date >=',$input['date_start']);
 		$this->db->where('warehouse.warehouse_date <=',$input['date_end']);
 		$this->db->join('product','product.product_code = warehouse.warehouse_product');
-		$query = $this->db->get('warehouse')->result_array();
-		$this->debuger->prevalue($query);
+		$query = $this->db->get('warehouse');
 		return $query->result_array();
 	}
 
@@ -43,4 +42,16 @@ class stock_model extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function product_insert_limit($shop_id,$product_code)
+	{
+		$this->db->where('product_limit_shop_id',$shop_id);
+		$this->db->where('product_limit_product_code',$product_code);
+		$query = $this->db->get('product_limit')->result_array();
+
+		if (count($query)<1) {
+			$input['product_limit_shop_id'] = $shop_id;
+			$input['product_limit_product_code'] = $product_code;
+			$this->db->insert('product_limit',$input);
+		}
+	}
 }

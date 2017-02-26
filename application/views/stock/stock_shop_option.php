@@ -8,7 +8,6 @@
     </div>
   </div>
   <!-- /.row -->
-  <div align="right"><p><?php echo anchor('stock/stock_in','<button type="button" class="btn btn-primary" style="width:95px;">รับเข้า</button>')?></p></div>
   <table class="table table-bordered table-hover table-striped tablesorter">
     <thead>
       <tr>
