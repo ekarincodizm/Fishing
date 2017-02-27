@@ -19,7 +19,7 @@ function getfocus(){
         <td width="61%">
           <div align="center">
             <?php if ($sale_order_detail[0]['sale_order_detail_status']==0): ?>
-              <a href="<?php echo site_url('sale/sale_result/'.$sale_order_detail[0]['sale_order_detail_id']);?>" class="btn-lg btn-success"><span class="glyphicon glyphicon-print"></span> ออกใบเสร็จ</a>
+              <a href="<?php echo site_url('sale/sale_result/'.$sale_order_detail[0]['sale_order_detail_id']);?>" target="_blank" class="btn-lg btn-success"><span class="glyphicon glyphicon-print"></span> ออกใบเสร็จ</a>
               <p></p>
             <?php else: ?>
               <h2><font color="red">รายการนี้ถูกยกเลิก</font></h2>
@@ -35,7 +35,7 @@ function getfocus(){
       <tr>
         <td height="50">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 ชื่อ :<?php echo $sale_order_detail[0]['member_fullname']?>
               </div>
@@ -62,7 +62,7 @@ function getfocus(){
                 <?php endif; ?>
               </div>
             </div>
-            <div class="col-md-1">
+            <!-- <div class="col-md-1">
               <div class="form-group">
                 <?php if ($sale_order_detail[0]['sale_order_detail_vat']==1): ?>
                   <div class="form-group btn btn-warning">
@@ -74,24 +74,18 @@ function getfocus(){
                   </div>
                 <?php endif; ?>
               </div>
-            </div>
+            </div> -->
           </div>
         </td>
       </tr>
       <tr>
         <td height="50">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4">
               <div class="form-group">
                 ที่อยู่ :<?php echo $sale_order_detail[0]['member_address']?>
               </div>
             </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td height="50">
-          <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                 หมายเหตุ :<?php echo $sale_order_detail[0]['member_note']?>
