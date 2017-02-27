@@ -66,4 +66,34 @@ class stock_model extends CI_Model {
 		// $this->debuger->prevalue($query);
 		return $query;
 	}
+
+	public function sale_order_list($shop_id)
+	{
+		$this->db->order_by('sale_order_detail_date','desc');
+		$this->db->where('sale_order_detail_shop',$shop_id);
+		$this->db->join('stock','stock.sale_order_detail_id = sale_order_detail.sale_order_detail_id');
+		$this->db->join('member','member.sale_order_detail_id = sale_order_detail.sale_order_detail_id');
+		$this->db->join('product','product.product_code = stock.stock_product');
+		$query = $this->db->get('sale_order_detail')->result_array();
+		// $this->debuger->prevalue($query);
+		return $query;
+	}
+
+	public function stock_cancel($order_id)
+	{
+		$status['sale_order_detail_status'] = 0;
+		$this->db->where('sale_order_detail_id',$order_id);
+		$this->db->update('sale_order_detail',$status);
+	}
+
+	public function sale_order_detail($order_id)
+	{
+		$this->db->order_by('sale_order_detail_date','desc');
+		$this->db->where('sale_order_detail.sale_order_detail_id',$order_id);
+		$this->db->join('stock','stock.sale_order_detail_id = sale_order_detail.sale_order_detail_id');
+		$this->db->join('member','member.sale_order_detail_id = sale_order_detail.sale_order_detail_id');
+		$this->db->join('product','product.product_code = stock.stock_product');
+		$query = $this->db->get('sale_order_detail')->result_array();
+		return $query;
+	}
 }

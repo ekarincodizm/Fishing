@@ -14,78 +14,86 @@ function getfocus(){
       </div>
     </div>
     <!-- /.row -->
-    <table width="95%" border="0" align="center" cellpadding="5" cellspacing="5">
+    <table width="60%" border="0" align="center" cellpadding="5" cellspacing="5">
       <tr>
         <td width="61%">
           <div align="center">
-            <?php echo form_open('sale_manage/sale_list')?>
-            <input type="text" name="barcode" id="barcode" class="form-control" required autocomplete="off" style="width:90%; text-align:center;" placeholder="---- บาร์โค้ดสินค้า ----" />
-            <?php echo form_close()?>
+              <a href="" class="btn btn-primary">ออกใบเสร็จ</a>
+              <p></p>
           </div>
         </td>
       </tr>
       <?php echo form_open('sale_manage/sale_insert')?>
       <tr>
         <td>
-          <div align="center"><h3>รายละเอียดลูกค้า</h3></div>
+          <div align="center"><h3>รายละเอียดใบเสร็จ</h3></div><br>
         </td>
       </tr>
       <tr>
         <td height="50">
-          <div class="row" align="center">
-            <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-3">
               <div class="form-group">
-                <input type="text" name="member_fullname" id="member_fullname" autocomplete="off" class="form-control" placeholder="---- ชื่อ - สกุล ----" />
+                ชื่อ :<?php echo $sale_order_detail[0]['member_fullname']?>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
-                <input type="text" name="member_phone" id="member_phone" autocomplete="off" class="form-control" placeholder="---- เบอร์โทรศัพท์ ----" />
+                เบอร์โทรศัพท์ :<?php echo $sale_order_detail[0]['member_phone']?>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <?php if ($sale_order_detail[0]['sale_order_detail_pay_type']==1): ?>
+                  <div class="form-group btn btn-danger">
+                    เงินสด
+                  </div>
+                <?php elseif($sale_order_detail[0]['sale_order_detail_pay_type']==2): ?>
+                  <div class="form-group btn btn-warning">
+                    เช็ค
+                  </div>
+                <?php else: ?>
+                  <div class="form-group btn btn-primary">
+                    เครดิต
+                  </div>
+                <?php endif; ?>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <?php if ($sale_order_detail[0]['sale_order_detail_vat']==1): ?>
+                  <div class="form-group btn btn-warning">
+                    VAT
+                  </div>
+                <?php else: ?>
+                  <div class="form-group btn btn-info">
+                    ไม่ VAT
+                  </div>
+                <?php endif; ?>
               </div>
             </div>
           </div>
         </td>
       </tr>
       <tr>
-        <td>
-          <div class="row" align="center">
-            <div class="col-md-6">
+        <td height="50">
+          <div class="row">
+            <div class="col-md-8">
               <div class="form-group">
-                <textarea col="3" rows="3" name="member_address" id="member_address" class="form-control"  placeholder="---- ที่อยู่ ----" /></textarea>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <textarea col="3" rows="3" name="member_note" id="member_note" class="form-control"  placeholder="---- หมายเหตุ ----" /></textarea>
+                ที่อยู่ :<?php echo $sale_order_detail[0]['member_address']?>
               </div>
             </div>
           </div>
         </td>
       </tr>
       <tr>
-        <td>
-          <div align=""><h4>รูปแบบชำระเงิน</h4></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="radio">
-            <label>
-              <input type="radio" name="sale_order_detail_pay_type"  value="1" checked/>
-              เงินสด
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="sale_order_detail_pay_type"  value="2"/>
-              เช็ค
-            </label>
-          </div>
-          <div class="radio">
-            <label>
-              <input type="radio" name="sale_order_detail_pay_type"  value="3"/>
-              เครดิต
-            </label>
+        <td height="50">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                หมายเหตุ :<?php echo $sale_order_detail[0]['member_note']?>
+              </div>
+            </div>
           </div>
         </td>
       </tr>
@@ -120,11 +128,6 @@ function getfocus(){
                 <td height="40"><div align="right"><?php echo @number_format(@array_sum(@$total))?>.00&nbsp;</div></td>
               </tr>
             </table></td>
-            <td valign="top"><div align="center">
-              <h2 style="color:green;">รวมเงิน <?php echo @number_format(@array_sum(@$total))?>.00 บาท&nbsp;</h2>
-              <input type="submit" value="ยืนยันการซื้อ" class="btn btn-success" style="width:90%; font-size:30px;">
-              <p></p>
-              <?php echo anchor('sale_manage/sale_clear/','<button type="button" class="btn btn-danger" style="width:90%;font-size:30px;">เริ่มต้นใหม่</button>')?> </div></td>
             </tr>
             <?php echo form_close()?>
           </table>

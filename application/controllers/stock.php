@@ -95,4 +95,43 @@ class stock extends CI_Controller {
 			redirect('login/index');
 		}
 	}
+
+	public function sale_order_list()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$data['sale_order_detail'] = $this->stock_model->sale_order_list($_SESSION['employees_shop']);
+			$data['page'] = "sale/sale_order_list";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+
+	public function sale_order_detail()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$order_id = $this->uri->segment(3);
+			$data['sale_order_detail'] = $this->stock_model->sale_order_detail($order_id);
+			$data['page'] = "sale/sale_order_detail";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
+
+	public function stock_cancel()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$order_id = $this->uri->segment(3);
+			$this->stock_model->stock_cancel($order_id);
+			$data['sale_order_detail'] = $this->stock_model->sale_order_list($_SESSION['employees_shop']);
+			$data['page'] = "sale/sale_order_list";
+			$this->load->view('head',$data);
+		}else{
+			redirect('login/index');
+		}
+	}
 }

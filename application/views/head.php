@@ -53,6 +53,7 @@
         <?php } ?>
         <?php if(@$_SESSION['position_status']==3){ ?>
         <li><?php echo anchor('sale/sale_list','<i class="fa fa-sitemap"></i> การขาย')?></li>
+        <li><?php echo anchor('stock/sale_order_list','<i class="fa fa-sitemap"></i> ตารางการขาย')?></li>
         <li><?php echo anchor('stock/stock_list','<i class="fa fa-th-large"></i> สต๊อกสินค้าร้าน')?></li>
         <li><?php echo anchor('stock/stock_shop_option','<i class="fa fa-tags"></i> ตั้งค่า')?></li>
         <?php } ?>

@@ -43,7 +43,7 @@ function getfocus(){
       <td height="50">หน่วยนับ</td>
       <td height="50"><input type="text" name="product_unit" id="product_unit" class="form-control" style="width:35%;" required placeholder="ระบุหน่วยนับ"  /></td>
       <td height="50">หมายเหตุ</td>
-      <td><textarea height="50" name="product_note" id="product_note" rows="4" cols="40" class="form-control" required placeholder="หมายเหตุ"></textarea></td>
+      <td><textarea height="50" name="product_note" id="product_note" rows="4" cols="40" class="form-control" placeholder="หมายเหตุ"></textarea></td>
     <tr>
       <td height="100" colspan="4"><div align="center">
           <input type="submit" class="btn btn-primary" value="บันทึกข้อมูล">
