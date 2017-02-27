@@ -28,5 +28,18 @@ class sale extends CI_Controller {
 			redirect('login/index');
 		}
 	}
-	
+
+	public function sale_result()
+	{
+		@session_start();
+		if(@$_SESSION['employees_id']!=""){
+			$order_id = $this->uri->segment(3);
+			$data['sale_order_detail'] = $this->stock_model->sale_order_detail($order_id);
+			$this->load->view('doc_header',$data);
+			$this->load->view('sale/sale_result');
+			$this->load->view('doc_footer');
+		}else{
+			redirect('login/index');
+		}
+	}
 }

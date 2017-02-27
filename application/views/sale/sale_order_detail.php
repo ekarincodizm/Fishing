@@ -18,12 +18,15 @@ function getfocus(){
       <tr>
         <td width="61%">
           <div align="center">
-              <a href="" class="btn btn-primary">ออกใบเสร็จ</a>
+            <?php if ($sale_order_detail[0]['sale_order_detail_status']==0): ?>
+              <a href="<?php echo site_url('sale/sale_result/'.$sale_order_detail[0]['sale_order_detail_id']);?>" class="btn-lg btn-success"><span class="glyphicon glyphicon-print"></span> ออกใบเสร็จ</a>
               <p></p>
+            <?php else: ?>
+              <h2><font color="red">รายการนี้ถูกยกเลิก</font></h2>
+            <?php endif; ?>
           </div>
         </td>
       </tr>
-      <?php echo form_open('sale_manage/sale_insert')?>
       <tr>
         <td>
           <div align="center"><h3>รายละเอียดใบเสร็จ</h3></div><br>
@@ -109,27 +112,28 @@ function getfocus(){
             <td width="9%" align="center">จำนวน</td>
             <td width="13%" height="40" align="center">ราคารวม</td>
           </tr>
-          <?php for($i=0;$i<30;$i++){ ?>
-            <?php $total[] = @$_SESSION['product'][$i]['product_sale']?>
-            <?php if(@$_SESSION['product'][$i]['product_key']!=""){ ?>
+            <?php $i=1; foreach ($sale_order_detail as $row): ?>
+            <?php $total[] = @$row['product_sale']?>
+            <?php @$row['product_key'] = date('YmdHis');?>
+            <?php if(@$row['product_key']!=""){ ?>
               <tr>
-                <td><div align="center"><?php echo ($i+1) ?></div></td>
-                <td>&nbsp;<?php echo @$_SESSION['product'][$i]['product_code']?> <?php echo @$_SESSION['product'][$i]['product_name']?><input name="product_code[]" id="product_code[]" type="hidden" value="<?php echo @$_SESSION['product'][$i]['product_code']?>" /> <?php echo anchor('sale/sale_list_delete/'.@$_SESSION['product'][$i]['product_key'],'<i class="fa fa-trash-o"></i>')?></td>
-                <td><div align="right"><?php echo @$_SESSION['product'][$i]['product_sale']?>.00&nbsp;</div></td>
+                <td><div align="center"><?php echo $i; ?></div></td>
+                <td>&nbsp;<?php echo @$row['product_code']?> <?php echo @$row['product_name']?><input name="product_code[]" id="product_code[]" type="hidden" value="<?php echo @$row['product_code']?>" />
+                          <?php echo anchor('sale/sale_list_delete/'.@$row['product_key'],'<i class="fa fa-trash-o"></i>')?></td>
+                <td><div align="right"><?php echo @$row['product_sale']?>.00&nbsp;</div></td>
                 <td><div align="center">1</div></td>
-                <td height="40"><div align="right"><?php echo @$_SESSION['product'][$i]['product_sale']?>.00&nbsp;</div></td>
+                <td height="40"><div align="right"><?php echo @$row['product_sale']?>.00&nbsp;</div></td>
               </tr>
               <?php } ?>
-              <?php } ?>
+              <?php $i++; endforeach; ?>
               <tr>
                 <td colspan="2" align="center"><strong>รวมทั้งหมด</strong></td>
                 <td><div align="right"><?php echo @number_format(@array_sum(@$total))?>.00&nbsp;</div></td>
-                <td><div align="center"><?php echo count(@$_SESSION['product'])?></div></td>
+                <td><div align="center"><?php echo count($sale_order_detail);?></div></td>
                 <td height="40"><div align="right"><?php echo @number_format(@array_sum(@$total))?>.00&nbsp;</div></td>
               </tr>
             </table></td>
             </tr>
-            <?php echo form_close()?>
           </table>
         </div>
       </body>
