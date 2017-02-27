@@ -21,7 +21,6 @@ class warehouse_model extends CI_Model {
 		$this->db->join('product','product.product_code = warehouse_temp.warehouse_temp_product');
 		$this->db->join('category','category.category_id = product.product_category');
 		$query = $this->db->get('warehouse_temp')->result_array();
-		// $this->debuger->prevalue($query);
 		return $query;
 	}
 
